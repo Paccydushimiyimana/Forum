@@ -19,8 +19,11 @@ from django.urls import path
 from boards import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('home/', views.home, name='home'),
-    path('admin/', admin.site.urls),
-    path(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
+    #path('', views.home, name='home'),
+    #path('home/', views.home, name='home'),
+    #path('admin/', admin.site.urls),
+    url(r'^$', views.home, name='home'),
+    url(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
+    url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
+    url(r'^admin/', admin.site.urls),
 ]
