@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewTopicForm
 from .models import Board, Topic, Post
 
+def home(request):
+    return render (request, 'home.html')
+
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
     user = User.objects.first()  # TODO: get the currently logged in user
@@ -22,3 +25,7 @@ def new_topic(request, pk):
     else:
         form = NewTopicForm()
     return render(request, 'new_topic.html', {'board': board, 'form': form})
+
+def board_topics(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+    return render(request, 'topics.html', {'board': board})    
