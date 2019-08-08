@@ -117,17 +117,10 @@ def reply_topic(request, pk, topic_pk):
             post.created_by = request.user
             post.save()
 
-            topic.last_updated = timezone.now()
-            topic.save()
+            topic.last_updated = timezone.now()  # <- here
+            topic.save()                         # <- and here
 
-            topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
-            topic_post_url = '{url}?page={page}#{id}'.format(
-                url=topic_url,
-                id=post.pk,
-                page=topic.get_page_count()
-            )
-
-            return redirect(topic_post_url)
+            return redirect('topic_posts', pk=pk, topic_pk=topic_pk)
     else:
         form = PostForm()
     return render(request, 'reply_topic.html', {'topic': topic, 'form': form})
